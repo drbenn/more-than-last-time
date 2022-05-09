@@ -1,1 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+body {
+  text-align: center;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  // background-color: rgb(249, 251, 251);
+  background: linear-gradient(
+    95deg,
+    rgb(255, 255, 255),
+    rgba(251, 247, 245, 0.982)
+  );
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.flex-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.border {
+  border: 1px solid rgb(81, 229, 177);
+}
+
+.component-padding {
+  padding: 1rem 1.5rem 0rem 1.5rem;
+}
+
+@media only screen and (max-width: 500px) {
+  .component-padding {
+    padding: 0;
+  }
+}

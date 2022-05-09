@@ -1,0 +1,233 @@
+<div
+  class="exercise-input-component-border flex-stack reduce-mat-size component-padding"
+>
+  <!-- Exercise Type Select -->
+  <mat-form-field appearance="outline">
+    <mat-label>Exercise Type: </mat-label>
+    <mat-select [(value)]="selectedExerciseType" class="select">
+      <mat-option
+        *ngFor="let type of exerciseTypeSelection"
+        [value]="type.viewValue"
+        (click)="onSelectedExerciseType()"
+      >
+        {{ type.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  {{ selectedExerciseType }}
+  <!-- Exercise Select -->
+  <mat-form-field appearance="outline">
+    <mat-label>Exercise: </mat-label>
+    <mat-select [(value)]="selectedExercise">
+      <mat-option
+        *ngFor="let exercise of exerciseSelection"
+        [value]="exercise.viewValue"
+        (click)="onSelectedExercise()"
+      >
+        {{ exercise.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  {{ selectedExercise }}
+  <!-- Action Buttons -->
+  <div class="button-div">
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        class="action-button"
+        (click)="addSet()"
+      >
+        Add Set
+      </button>
+    </div>
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        class="action-button"
+        (click)="test()"
+      >
+        Test
+      </button>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" class="action-button">
+        Next Exercise
+      </button>
+    </div>
+  </div>
+  <div class="top-border-gradient"></div>
+  <div class="sideXside">
+    <!-- LEFT SIDE - Previous Set -->
+    <div class="divider-border">
+      <div>
+        <div class="set-title">Previous Set(s)</div>
+        <div class="set-date" *ngIf="selectedExercise">
+          {{ selectedExercise }} on Date
+        </div>
+        <div class="working-flex-table set-subtitle">
+          <div>Set</div>
+          <div>Reps</div>
+          <div>Weight</div>
+          <div>Volume</div>
+        </div>
+      </div>
+      <div class="previous-flex-table" *ngFor="let prevSet of previousSets">
+        <div>{{ this.prevSet }}</div>
+        <div>15</div>
+        <div class="previous-offset">100</div>
+        <div class="previous-offset">1500</div>
+      </div>
+    </div>
+    <!-- <div class="previous-flex-table" *ngFor="let prevSet of previousSets">
+        <div>{{ this.prevSet }}</div>
+        <div>15</div>
+        <div class="previous-offset">100</div>
+        <div class="previous-offset">1500</div>
+      </div>
+    </div> -->
+
+    <!-- RIGHT SIDE - Working Set -->
+    <div class="">
+      <div>
+        <div class="set-title">Working Set(s)</div>
+        <div class="set-date" *ngIf="selectedExercise">
+          {{ selectedExercise }} on {{ dateNow | date: "shortDate" }}
+        </div>
+        <div class="working-flex-table set-subtitle">
+          <div>Set</div>
+          <div>Reps</div>
+          <div>Weight</div>
+          <div>Volume</div>
+          <!-- <button
+            class="removeButton"
+            *ngIf="value"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="value = ''"
+          >
+            <mat-icon>close</mat-icon>
+          </button> -->
+        </div>
+      </div>
+      <div
+        class="reduce-mat-size"
+        *ngFor="let workSet of workingSets; let indexOfElement = index"
+      >
+        <form class="form-flex">
+          <div class="setNumber">
+            <span class="">{{ indexOfElement + 1 }}</span>
+          </div>
+          <div class="">
+            <mat-form-field
+              [style.width.px]="32"
+              [style.font-size.px]="12"
+              type="number"
+              appearance="outline"
+            >
+              <mat-label>R</mat-label>
+              <input
+                matInput
+                placeholder=""
+                name="workingRepInput"
+                [(ngModel)]="workingRepInput"
+                (input)="updateSetReps()"
+              />
+              <!-- <button
+              *ngIf="value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="value = ''"
+            >
+              <mat-icon>close</mat-icon>
+            </button> -->
+            </mat-form-field>
+          </div>
+          <div class="">
+            <mat-form-field
+              [style.width.px]="40"
+              [style.font-size.px]="12"
+              type="number"
+              appearance="outline"
+            >
+              <mat-label>W</mat-label>
+              <input
+                matInput
+                placeholder=""
+                name="workingWgtInput"
+                [(ngModel)]="workingWgtInput"
+                (input)="updateSetWeight()"
+              />
+              <!-- <button
+              *ngIf="value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="value = ''"
+            >
+              <mat-icon class="icon-display">close</mat-icon>
+            </button> -->
+            </mat-form-field>
+          </div>
+          <div class="">
+            <mat-form-field
+              [style.width.px]="42"
+              [style.font-size.px]="12"
+              type="number"
+              appearance="outline"
+            >
+              <mat-label>V</mat-label>
+              <input
+                disabled
+                matInput
+                placeholder=""
+                name="workingVolDisplay"
+                [(ngModel)]="workingVolDisplay"
+              />
+              <!-- <button
+              *ngIf="value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="value = ''"
+            >
+              <mat-icon>close</mat-icon>
+            </button> -->
+            </mat-form-field>
+          </div>
+          <!-- <div>
+            <button
+              class="removeButton"
+              *ngIf="value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="value = ''"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </div> -->
+        </form>
+      </div>
+      <div>
+        R:{{ workingRepInput }} - W: {{ workingWgtInput }} - V:
+        {{ workingVolDisplay }}
+      </div>
+      <div class="button-div">
+        <div>
+          <button mat-raised-button color="accent" class="action-button">
+            Delete Set X
+          </button>
+        </div>
+        <div>
+          <button mat-raised-button color="warn" class="action-button">
+            Delete Exercise
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
